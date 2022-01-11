@@ -1,4 +1,7 @@
 .DS_Store
 .idea/
+
 sortedNumbers.txt
 numbers.txt
+example.json
+accountsUpdated.json
