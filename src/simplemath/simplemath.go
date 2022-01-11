@@ -40,7 +40,7 @@ func Calc(op Operator, a float64, b float64) (float64, error) {
 		}
 		return a / b, nil
 	default:
-		return 0, errors.New("invalid operator")
+		return 0, fmt.Errorf("invalid operator '%s'", op)
 	}
 }
 
@@ -50,30 +50,14 @@ func main() {
 		log.Fatal("invalid number of arguments")
 	}
 
-	var op Operator
-	switch args[0] {
-	case "add":
-		op = Add
-	case "subtract":
-		op = Subtract
-	case "multiply":
-		op = Multiply
-	case "divide":
-		op = Divide
-	default:
-		log.Fatalf("invalid operator '%s'", args[0])
-	}
-
 	a, b, err := ParseInputToFloat(args[1], args[2])
 	if err != nil {
-		fmt.Println(err.Error())
-		os.Exit(1)
+		log.Fatal(err.Error())
 	}
 
-	result, err := Calc(op, a, b)
+	result, err := Calc(Operator(args[0]), a, b)
 	if err != nil {
-		fmt.Println(err.Error())
-		os.Exit(1)
+		log.Fatal(err.Error())
 	}
 
 	fmt.Println(result)
