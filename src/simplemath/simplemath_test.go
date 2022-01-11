@@ -61,7 +61,7 @@ func TestCalc(t *testing.T) {
 	t.Run("adding", func(t *testing.T) {
 		t.Run("two integers", func(t *testing.T) {
 			expected := 120.0
-			actual, err := Calc("add", 100, 20)
+			actual, err := Calc(Add, 100, 20)
 			if err != nil {
 				log.Fatalf("got an error but didn't expect one %q", err.Error())
 			}
@@ -72,7 +72,7 @@ func TestCalc(t *testing.T) {
 
 		t.Run("one integer and one float", func(t *testing.T) {
 			expected := 120.0
-			actual, err := Calc("add", 100, 20.0)
+			actual, err := Calc(Add, 100, 20.0)
 			if err != nil {
 				log.Fatalf("got an error but didn't expect one %q", err.Error())
 			}
@@ -83,7 +83,7 @@ func TestCalc(t *testing.T) {
 
 		t.Run("two floats", func(t *testing.T) {
 			expected := 120.0
-			actual, err := Calc("add", 100.0, 20.0)
+			actual, err := Calc(Add, 100.0, 20.0)
 			if err != nil {
 				log.Fatalf("got an error but didn't expect one %q", err.Error())
 			}
@@ -96,7 +96,7 @@ func TestCalc(t *testing.T) {
 	t.Run("subtracting", func(t *testing.T) {
 		t.Run("two integers", func(t *testing.T) {
 			expected := 100.0
-			actual, err := Calc("subtract", 150, 50)
+			actual, err := Calc(Subtract, 150, 50)
 			if err != nil {
 				log.Fatalf("got an error but didn't expect one %q", err.Error())
 			}
@@ -107,7 +107,7 @@ func TestCalc(t *testing.T) {
 
 		t.Run("one integer and one float", func(t *testing.T) {
 			expected := 100.0
-			actual, err := Calc("subtract", 150, 50.0)
+			actual, err := Calc(Subtract, 150, 50.0)
 			if err != nil {
 				log.Fatalf("got an error but didn't expect one %q", err.Error())
 			}
@@ -118,7 +118,7 @@ func TestCalc(t *testing.T) {
 
 		t.Run("two floats", func(t *testing.T) {
 			expected := 100.0
-			actual, err := Calc("subtract", 150.0, 50.0)
+			actual, err := Calc(Subtract, 150.0, 50.0)
 			if err != nil {
 				log.Fatalf("got an error but didn't expect one %q", err.Error())
 			}
@@ -131,7 +131,7 @@ func TestCalc(t *testing.T) {
 	t.Run("multiplying", func(t *testing.T) {
 		t.Run("two integers", func(t *testing.T) {
 			expected := 100.0
-			actual, err := Calc("multiply", 10, 10)
+			actual, err := Calc(Multiply, 10, 10)
 			if err != nil {
 				log.Fatalf("got an error but didn't expect one %q", err.Error())
 			}
@@ -142,7 +142,7 @@ func TestCalc(t *testing.T) {
 
 		t.Run("one integer and one float", func(t *testing.T) {
 			expected := 100.0
-			actual, err := Calc("multiply", 10, 10.0)
+			actual, err := Calc(Multiply, 10, 10.0)
 			if err != nil {
 				log.Fatalf("got an error but didn't expect one %q", err.Error())
 			}
@@ -153,7 +153,7 @@ func TestCalc(t *testing.T) {
 
 		t.Run("two floats", func(t *testing.T) {
 			expected := 100.0
-			actual, err := Calc("multiply", 10.0, 10.0)
+			actual, err := Calc(Multiply, 10.0, 10.0)
 			if err != nil {
 				log.Fatalf("got an error but didn't expect one %q", err.Error())
 			}
@@ -165,7 +165,7 @@ func TestCalc(t *testing.T) {
 
 	t.Run("dividing", func(t *testing.T) {
 		t.Run("with a zero divisor", func(t *testing.T) {
-			_, err := Calc("divide", 100, 0)
+			_, err := Calc(Divide, 100, 0)
 			if err == nil {
 				log.Fatal("expected an error but didn't get one")
 			}
@@ -173,7 +173,7 @@ func TestCalc(t *testing.T) {
 
 		t.Run("two integers", func(t *testing.T) {
 			expected := 10.0
-			actual, err := Calc("divide", 100, 10)
+			actual, err := Calc(Divide, 100, 10)
 			if err != nil {
 				log.Fatalf("got an error but didn't expect one %q", err.Error())
 			}
@@ -184,7 +184,7 @@ func TestCalc(t *testing.T) {
 
 		t.Run("one integer by one float", func(t *testing.T) {
 			expected := 10.0
-			actual, err := Calc("divide", 100, 10.0)
+			actual, err := Calc(Divide, 100, 10.0)
 			if err != nil {
 				log.Fatalf("got an error but didn't expect one %q", err.Error())
 			}
@@ -195,7 +195,7 @@ func TestCalc(t *testing.T) {
 
 		t.Run("two floats", func(t *testing.T) {
 			expected := 10.0
-			actual, err := Calc("divide", 100.0, 10.0)
+			actual, err := Calc(Divide, 100.0, 10.0)
 			if err != nil {
 				log.Fatalf("got an error but didn't expect one %q", err.Error())
 			}

@@ -3,8 +3,18 @@ package main
 import (
 	"errors"
 	"fmt"
+	"log"
 	"os"
 	"strconv"
+)
+
+type Operator string
+
+const (
+	Add      Operator = "add"
+	Subtract Operator = "subtract"
+	Multiply Operator = "multiply"
+	Divide   Operator = "divide"
 )
 
 func ParseInputToFloat(a string, b string) (float64, float64, error) {
@@ -16,15 +26,15 @@ func ParseInputToFloat(a string, b string) (float64, float64, error) {
 	return x, y, nil
 }
 
-func Calc(op string, a float64, b float64) (float64, error) {
+func Calc(op Operator, a float64, b float64) (float64, error) {
 	switch op {
-	case "add":
+	case Add:
 		return a + b, nil
-	case "subtract":
+	case Subtract:
 		return a - b, nil
-	case "multiply":
+	case Multiply:
 		return a * b, nil
-	case "divide":
+	case Divide:
 		if b == 0 {
 			return 0, errors.New("divisor cannot be zero")
 		}
@@ -37,16 +47,21 @@ func Calc(op string, a float64, b float64) (float64, error) {
 func main() {
 	args := os.Args[1:]
 	if len(args) != 3 {
-		errMsg := `invalid number of arguments (found %d, need 3)
-format should follow: [operator] [x] [y]
-example:
-> add 1 2
-> subtract 2 1
-> multiply 2 2
-> divide 4 2`
-		err := fmt.Errorf(errMsg, len(args))
-		fmt.Println(err.Error())
-		os.Exit(1)
+		log.Fatal("invalid number of arguments")
+	}
+
+	var op Operator
+	switch args[0] {
+	case "add":
+		op = Add
+	case "subtract":
+		op = Subtract
+	case "multiply":
+		op = Multiply
+	case "divide":
+		op = Divide
+	default:
+		log.Fatalf("invalid operator '%s'", args[0])
 	}
 
 	a, b, err := ParseInputToFloat(args[1], args[2])
@@ -55,7 +70,7 @@ example:
 		os.Exit(1)
 	}
 
-	result, err := Calc(args[0], a, b)
+	result, err := Calc(op, a, b)
 	if err != nil {
 		fmt.Println(err.Error())
 		os.Exit(1)
