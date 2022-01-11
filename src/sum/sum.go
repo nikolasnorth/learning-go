@@ -9,12 +9,12 @@ import (
 )
 
 func main() {
-	wd, err := os.Getwd()
-	if err != nil {
-		log.Fatal(err.Error())
+	if len(os.Args) != 2 {
+		log.Fatal("invalid input or missing filepath. Example usage: go run sum.go /path/to/file")
 	}
 
-	file, err := os.Open(wd + "/numbers.txt")
+	filepath := os.Args[1]
+	file, err := os.Open(filepath)
 	if err != nil {
 		log.Fatal(err.Error())
 	}
