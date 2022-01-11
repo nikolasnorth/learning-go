@@ -20,10 +20,10 @@ func main() {
 	}
 	defer file.Close()
 
-	sum := 0
+	sum := 0.0
 	scanner := bufio.NewScanner(file)
 	for scanner.Scan() {
-		num, err := strconv.Atoi(scanner.Text())
+		num, err := strconv.ParseFloat(scanner.Text(), 64)
 		if err != nil {
 			log.Fatal(err.Error())
 		}

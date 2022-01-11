@@ -2,6 +2,7 @@ package main
 
 import (
 	"bufio"
+	"fmt"
 	"log"
 	"os"
 	"sort"
@@ -20,10 +21,10 @@ func main() {
 	}
 	defer infile.Close()
 
-	var nums []int
+	var nums []float64
 	scanner := bufio.NewScanner(infile)
 	for scanner.Scan() {
-		num, err := strconv.Atoi(scanner.Text())
+		num, err := strconv.ParseFloat(scanner.Text(), 64)
 		if err != nil {
 			log.Fatal(err.Error())
 		}
@@ -36,7 +37,7 @@ func main() {
 		log.Fatal(err)
 	}
 
-	sort.Ints(nums)
+	sort.Float64s(nums)
 
 	outfile, err := os.Create("sortedNumbers.txt")
 	if err != nil {
@@ -45,7 +46,7 @@ func main() {
 	defer outfile.Close()
 
 	for _, num := range nums {
-		_, err := outfile.WriteString(strconv.Itoa(num) + "\n")
+		_, err := outfile.WriteString(fmt.Sprintf("%.1f\n", num))
 		if err != nil {
 			log.Fatal(err.Error())
 		}
